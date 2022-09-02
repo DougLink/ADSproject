@@ -1,0 +1,53 @@
+<%- include('layout/header') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto mt-4">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header bg-success">
+                    <h3 class="text-light">Edit Ticket (<%= ticket._id %>)</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/update/<%= ticket.id %>" method="post" id="add-form" enctype="multipart/form-data">
+                        <div class="mb-3">
+                        <label for="user_id">User ID</label>
+                        <input type="id" name="user_id" class="form-control form-control-lg"
+                        placeholder="Enter User ID" value="<%= ticket.user_id %>" required />
+                        </div>
+                        <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control form-control-lg"
+                        placeholder="Enter email" value="<%= ticket.email %>" required />
+                        </div>
+                        <div class="mb-3">
+                        <label for="phone">Phone</label>
+                        <input type="phone" name="phone" class="form-control form-control-lg"
+                        placeholder="Enter phone" value="<%= ticket.phone %>" required />
+                        </div>
+                        <div class="mb-3">
+                        <label for="address">Address</label>
+                        <input type="address" name="address" class="form-control form-control-lg"
+                        placeholder="Enter address" value="<%= ticket.address %>" required />
+                        </div>
+                        <div class="mb-3">
+                        <label for="description">Description</label>
+                        <input type="description" name="description" class="form-control form-control-lg"
+                        placeholder="Enter description" value="<%= ticket.description %>" required />
+                        </div>
+                        <div class="mb-3">
+                        <label for="image" class="form-label">Select Image</label>
+                        <input class="form-control form-control-lg" type="file" name="image" />
+                        <img src="/<%= ticket.image %>" width="100" class="img-thumbnail mt-1" />
+                        </div>
+                        <input type="'hidden" name="old-image" value="<%= ticket.image %>" />
+                        <div class="mb-3 d-grid">
+                        <input type="submit" name="submit" value="Update Ticket" class="btn btn-primary btn-success">
+                        </div>      
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer') %>

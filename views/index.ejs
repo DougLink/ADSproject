@@ -10,26 +10,30 @@
              </div>
              <% } %>
             <div class="table-responsive my-3">
-                <% if (users != '') { %>
+                <% if (tickets != '') { %>
                     <table class="table table-stripped text-center my-3">
                         <thead>
                         <tr class="table-dark">
-                            <th>ID</th>
-                            <th>Image</th>
-                            <th>Name</th>
+                            <th>Ticket ID</th>
+                            <th>User ID</th>
                             <th>E-Mail</th>
                             <th>Phone</th>
+                            <th>Address</th>
+                            <th>Description</th>
+                            <th>Image</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <% users.forEach((row, index) => { %>
+                            <% tickets.forEach((row, index) => { %>
                                 <tr class="align-middle">
                                     <td><%= index %></td>
-                                    <td><img src="<%= row.image %>" width="50" class="img-thumbnail" /></td>
-                                    <td><%= row.name %></td>
+                                    <td><%= row.user_id %></td>
                                     <td><%= row.email %></td>
                                     <td><%= row.phone %></td>
+                                    <td><%= row.address %></td>
+                                    <td><%= row.description %></td>
+                                    <td><img src="<%= row.image %>" width="50" class="img-thumbnail" /></td>
                                     <td>
                                       <a href="/edit/<%= row._id %>" class="text-success"><i class="fa-solid fa-pen-to-square"></i></a>
                                       <a href="/delete/<%= row._id %>" class="text-danger"><i class="fa-solid fa-trash"></i></a>
@@ -39,7 +43,7 @@
                         </tbody>
                     </table>
                 <% } else { %>
-                    <h1 class="text-center text-secondary mt-5">No users found in the database!</h1>
+                    <h1 class="text-center text-secondary mt-5">No tickets found in the database!</h1>
                 <% } %>
                 
             </div>

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const userSchema = new mongoose.Schema({
-    name: {
+const ticketSchema = new mongoose.Schema({
+    user_id: {
         type: String,
         required: true,
     },
@@ -9,6 +9,14 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     phone: {
+        type: String,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true,
+    },
+    description: {
         type: String,
         required: true,
     },
@@ -22,4 +30,4 @@ const userSchema = new mongoose.Schema({
         default: Date.now,
     }
 });
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Ticket", ticketSchema);

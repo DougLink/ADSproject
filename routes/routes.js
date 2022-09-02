@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/users");
+const Ticket = require("../models/ticket_repair");
 const multer = require("multer");
 const fs = require("fs");
 
@@ -19,65 +19,67 @@ var upload = multer({
     storage: storage,
 }).single("image");
 
-// inserting user into the DB route
+// inserting ticket into the DB route
 router.post("/add", upload, (req, res) => {
-    const user = new User({
-        name: req.body.name,
+    const ticket = new Ticket({
+        user_id: req.body.user_id,
         email: req.body.email,
         phone: req.body.phone,
+        address: req.body.address,
+        description: req.body.description,
         image: req.file.filename,
     });
-    user.save((err) => {
+    ticket.save((err) => {
         if(err){
             res.json({message: err.message, type: 'danger'});
         }else{
             req.session.message = {
-                type: 'sucess',
-                message: 'User Added Successfully!'
+                type: 'success',
+                message: 'Ticket Added Successfully!'
             };
             res.redirect('/');
         }
     })
 });
 
-//Get users route
+//Get ticket route
 router.get("/", (req,res) => {
-    User.find().exec((err,users) => {
+    Ticket.find().exec((err,tickets) => {
         if(err){
             res.json({message: err.message });
         }else{
             res.render('index', {
                 title:'Home Page',
-                users: users
+                tickets: tickets
             })
         }
     })
 });
 
 router.get("/add", (req,res) => {
-    res.render("add_users", { title: "Add Users"});
+    res.render("add_ticket", { title: "Add Ticket"});
 });
 
-// Edit user
+// Edit ticket
 router.get('/edit/:id', (req, res) => {
     let id = req.params.id;
-    User.findById(id, (err, user) => {
+    Ticket.findById(id, (err, ticket) => {
         if (err) {
             res.redirect("/");
         } else {
-            if (user == null) {
+            if (ticket == null) {
                 res.redirect("/");
             } else {
-                res.render("edit_users", {
-                    title: "Edit User",
-                    user: user,
+                res.render("edit_ticket", {
+                    title: "Edit Ticket",
+                    ticket: ticket,
                 });
             }
         }
     });
 });
 
-// Update user route
+// Update ticket route
 router.post('/update/:id', upload, (req, res) => {
     let id = req.params.id;
     let new_image = '';
@@ -93,10 +95,13 @@ router.post('/update/:id', upload, (req, res) => {
         new_image = req.body.old_image;
     }
 
-    User.findByIdAndUpdate(id, {
-        name: req.body.name,
+    Ticket.findByIdAndUpdate(id, {
+        ticket_id: req.body.ticket_id,
+        user_id: req.body.user_id,
         email: req.body.email,
         phone: req.body.phone,
+        address: req.body.address,
+        description: req.body.description,
         image: new_image,
     }, (err, result) => {
         if(err){
@@ -104,7 +109,7 @@ router.post('/update/:id', upload, (req, res) => {
         } else {
             req.session.message = {
                 type: 'success',
-                message: 'User updated with success!'
+                message: 'Ticket updated with success!'
             };
             res.redirect('/');
         }
@@ -112,10 +117,10 @@ router.post('/update/:id', upload, (req, res) => {
 });
 
 
-// Delete User Route
+// Delete Ticket Route
 router.get('/delete/:id', (req, res) => {
     let id = req.params.id;
-    User.findByIdAndRemove(id, (err, result) => {
+    Ticket.findByIdAndRemove(id, (err, result) => {
         if (result.image !="") {
             try {
                 fs.unlinkSync("./uploads/" + result.image);
@@ -129,7 +134,7 @@ router.get('/delete/:id', (req, res) => {
         } else {
             req.session.message = {
                 type: "info",
-                message:"User deleted with success!",
+                message:"Ticket deleted with success!",
             };
             res.redirect("/");
         }
