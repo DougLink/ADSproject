@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 // database connection
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true,
@@ -41,5 +41,5 @@ app.set("view engine", "ejs");
 app.use("", require("./routes/routes"));
 
 app.listen(PORT, () => {
-    console.log(`Server started at http://localhost:${PORT}`);
+    console.log(`Server started at http://localhost:5000`);
 });
