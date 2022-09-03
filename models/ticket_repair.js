@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const ticketSchema = new mongoose.Schema({
-    user_id: {
+    employee_id: {
         type: String,
         required: true,
     },
@@ -8,11 +8,7 @@ const ticketSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    phone: {
-        type: String,
-        required: true,
-    },
-    address: {
+    office_room: {
         type: String,
         required: true,
     },

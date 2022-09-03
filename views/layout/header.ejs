@@ -6,75 +6,75 @@
         border-radius: 5px;
         cursor: pointer;
         transition: 0.3s;
-      }
-    
+        }
+        
     #img:hover {opacity: 0.7;}
-    
-    /* The Modal (background) */
+        
+        /* The Modal (background) */
     .modal {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1; /* Sit on top */
-      padding-top: 100px; /* Location of the box */
-      left: 0;
-      top: 0;
-      width: 50%; /* Full width */
-      height: 50%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(201, 239, 35); /* Fallback color */
-      background-color: rgba(14, 221, 45, 0.9); /* Black w/ opacity */
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 50%; /* Full width */
+        height: 50%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
     }
-    
-    /* Modal Content (image) */
+        
+        /* Modal Content (image) */
     .modal-content {
-      margin: auto;
-      display: block;
-      width: 80%;
-      max-width: 700px;
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 800px;
     }
-    
-    
-    /* Add Animation */
+        
+        
+        /* Add Animation */
     .modal-content {  
-      -webkit-animation-name: zoom;
-      -webkit-animation-duration: 0.6s;
-      animation-name: zoom;
-      animation-duration: 0.6s;
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
     }
-    
+        
     @-webkit-keyframes zoom {
-      from {-webkit-transform:scale(0)} 
-      to {-webkit-transform:scale(1)}
+        from {-webkit-transform:scale(0)} 
+        to {-webkit-transform:scale(1)}
     }
-    
+        
     @keyframes zoom {
-      from {transform:scale(0)} 
-      to {transform:scale(1)}
+        from {transform:scale(0)} 
+        to {transform:scale(1)}
     }
-    
-    /* The Close Button */
+        
+        /* The Close Button */
     .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 35px;
-      color: #f1f1f1;
-      font-size: 40px;
-      font-weight: bold;
-      transition: 0.3s;
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
     }
-    
+        
     .modal-close:hover,
     .modal-close:focus {
-      color: #bbb;
-      text-decoration: none;
-      cursor: pointer;
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
     }
-    
-    /* 100% Image Width on Smaller Screens */
-    @media only screen and (max-width: 700px){
-      .modal-content {
+        
+        /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 800px){
+        .modal-content {
         width: 100%;
-      }
+        }
     }
     </style>
     <meta charset="UTF-8">
@@ -88,7 +88,7 @@
     integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" 
     crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"/>
-  </head>
+</head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Ninth navbar example">
         <div class="container-xl">

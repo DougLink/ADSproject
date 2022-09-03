@@ -10,9 +10,9 @@
                 <div class="card-body">
                     <form action="/update/<%= ticket.id %>" method="post" id="add-form" enctype="multipart/form-data">
                         <div class="mb-3">
-                        <label for="user_id">User ID</label>
-                        <input type="id" name="user_id" class="form-control form-control-lg"
-                        placeholder="Enter User ID" value="<%= ticket.user_id %>" required />
+                        <label for="employee_id">Employee ID</label>
+                        <input type="id" name="employee_id" class="form-control form-control-lg"
+                        placeholder="Enter Employee ID" value="<%= ticket.employee_id %>" required />
                         </div>
                         <div class="mb-3">
                         <label for="email">Email</label>
@@ -20,14 +20,9 @@
                         placeholder="Enter email" value="<%= ticket.email %>" required />
                         </div>
                         <div class="mb-3">
-                        <label for="phone">Phone</label>
-                        <input type="phone" name="phone" class="form-control form-control-lg"
-                        placeholder="Enter phone" value="<%= ticket.phone %>" required />
-                        </div>
-                        <div class="mb-3">
-                        <label for="address">Address</label>
-                        <input type="address" name="address" class="form-control form-control-lg"
-                        placeholder="Enter address" value="<%= ticket.address %>" required />
+                        <label for="office_room">Office Room</label>
+                        <input type="name" name="office_room" class="form-control form-control-lg"
+                        placeholder="Enter office room" value="<%= ticket.office_room %>" required />
                         </div>
                         <div class="mb-3">
                         <label for="description">Description</label>

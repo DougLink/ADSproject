@@ -22,10 +22,9 @@ var upload = multer({
 // inserting ticket into the DB route
 router.post("/add", upload, (req, res) => {
     const ticket = new Ticket({
-        user_id: req.body.user_id,
+        employee_id: req.body.employee_id,
         email: req.body.email,
-        phone: req.body.phone,
-        address: req.body.address,
+        office_room: req.body.office_room,
         description: req.body.description,
         image: req.file.filename,
     });
@@ -96,11 +95,9 @@ router.post('/update/:id', upload, (req, res) => {
     }
 
     Ticket.findByIdAndUpdate(id, {
-        ticket_id: req.body.ticket_id,
-        user_id: req.body.user_id,
+        employee_id: req.body.employee_id,
         email: req.body.email,
-        phone: req.body.phone,
-        address: req.body.address,
+        office_room: req.body.office_room,
         description: req.body.description,
         image: new_image,
     }, (err, result) => {

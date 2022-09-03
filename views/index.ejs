@@ -14,11 +14,10 @@
                     <table class="table table-stripped text-center my-3">
                         <thead>
                         <tr class="table-dark">
-                            <th>Ticket ID</th>
-                            <th>User ID</th>
+                            <th>Index</th>
+                            <th>Employee ID</th>
                             <th>E-Mail</th>
-                            <th>Phone</th>
-                            <th>Address</th>
+                            <th>Office Room</th>
                             <th>Description</th>
                             <th>Image</th>
                             <th>Action</th>
@@ -28,10 +27,9 @@
                             <% tickets.forEach((row, index) => { %>
                                 <tr class="align-middle">
                                     <td><%= index %></td>
-                                    <td><%= row.user_id %></td>
+                                    <td><%= row.employee_id %></td>
                                     <td><%= row.email %></td>
-                                    <td><%= row.phone %></td>
-                                    <td><%= row.address %></td>
+                                    <td><%= row.office_room %></td>
                                     <td><%= row.description %></td>
                                     <td><img id="img" src="<%= row.image %>" width="80" class="img-thumbnail" /></td>
                                     <td>
