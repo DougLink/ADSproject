@@ -4,6 +4,13 @@ const Ticket = require("../models/ticket_repair");
 const multer = require("multer");
 const fs = require("fs");
 
+router.get("/", (req,res) => {
+    res.render("add_ticket", { title: "Add Ticket"});
+});
+
+router.get("/login", (req,res) => {
+    res.render("login", { title: "Login"});
+});
 
 // image upload
 var storage = multer.diskStorage({
@@ -42,22 +49,20 @@ router.post("/add", upload, (req, res) => {
 });
 
 //Get ticket route
-router.get("/", (req,res) => {
+router.get("/tickets", (req,res) => {
     Ticket.find().exec((err,tickets) => {
         if(err){
             res.json({message: err.message });
         }else{
-            res.render('index', {
-                title:'Home Page',
+            res.render('tickets', {
+                title:'Tickets Page',
                 tickets: tickets
             })
         }
     })
 });
 
-router.get("/add", (req,res) => {
-    res.render("add_ticket", { title: "Add Ticket"});
-});
+
 
 // Edit ticket
 router.get('/edit/:id', (req, res) => {

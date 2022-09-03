@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
-const ticketSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     employee_id: {
+        type: String,
+        required: true,
+    },
+    name: {
         type: String,
         required: true,
     },
@@ -8,17 +12,9 @@ const ticketSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    office_room: {
+    password: {
         type: String,
         required: true,
     },
-    description: {
-        type: String,
-        required: true,
-    },
-    image: {
-        type: String,
-        required: true,
-    },
-}, {timestamps: true});
-module.exports = mongoose.model("Ticket", ticketSchema);
+});
+module.exports = mongoose.model("Admin", adminSchema);
