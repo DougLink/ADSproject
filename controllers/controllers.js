@@ -1,20 +1,47 @@
 const express = require("express");
 const router = express.Router();
 const Ticket = require("../models/ticket_repair");
+const Employee = require("../models/employee");
 const multer = require("multer");
 const fs = require("fs");
 
-router.get("/", (req,res) => {
+// add ticket page route
+router.get("/add", (req,res) => {
     res.render("add_ticket", { title: "Add Ticket"});
 });
 
-router.get("/employee", (req,res) => {
-    res.render("employee", { title: "Employee Page"});
-});
-
+// login page route
 router.get("/login", (req,res) => {
     res.render("login", { title: "Login Page"});
 });
+
+// register page route
+router.get("/register", (req,res) => {
+    res.render("register", { title: "Register Page"});
+});
+
+// register new employee into the DB
+router.post("/register", (req, res) => {
+    const employee = new Employee({
+        employee_id: req.body.employee_id,
+        name: req.body.name,
+        email: req.body.email,
+        office_room: req.body.office_room,
+        password: req.body.password,
+    });
+    employee.save((err) => {
+        if(err){
+            res.json({message: err.message, type: 'danger'});
+        }else{
+            req.session.message = {
+                type: 'success',
+                message: 'Employee Registered Successfully!'
+            };
+            res.redirect('/admin_tickets');
+        }
+    })
+});
+
 
 // image upload
 var storage = multer.diskStorage({
@@ -47,13 +74,13 @@ router.post("/add", upload, (req, res) => {
                 type: 'success',
                 message: 'Ticket Added Successfully!'
             };
-            res.redirect('/');
+            res.redirect('/tickets');
         }
     })
 });
 
 //Get ticket route(Admin)
-router.get("/admin_tickets", (req,res) => {
+router.get("/", (req,res) => {
     Ticket.find().exec((err,tickets) => {
         if(err){
             res.json({message: err.message });
@@ -67,13 +94,11 @@ router.get("/admin_tickets", (req,res) => {
 });
 
 //Get my tickets route
-router.get('/tickets/:employee_id', (req,res) => {
-    let employee_id = req.params.employee_id;
-    Ticket.findById(employee_id, (err, tickets) => {
-        if (err) {
-            res.redirect("/employee");
+router.get('/tickets', (req,res) => {
+    Ticket.find().exec((err,tickets) => {
+        if(err){
             res.json({message: err.message });
-        } else {
+        }else{
             res.render('tickets', {
                 title:'Tickets Page',
                 tickets: tickets
@@ -87,10 +112,10 @@ router.get('/edit/:id', (req, res) => {
     let id = req.params.id;
     Ticket.findById(id, (err, ticket) => {
         if (err) {
-            res.redirect("/admin_tickets");
+            res.redirect("/");
         } else {
             if (ticket == null) {
-                res.redirect("/admin_tickets");
+                res.redirect("/");
             } else {
                 res.render("edit_ticket", {
                     title: "Edit Ticket",
@@ -132,7 +157,7 @@ router.post('/update/:id', upload, (req, res) => {
                 type: 'success',
                 message: 'Ticket updated with success!'
             };
-            res.redirect('/admin_tickets');
+            res.redirect('/');
         }
     })
 });
@@ -157,7 +182,7 @@ router.get('/delete/:id', (req, res) => {
                 type: "info",
                 message:"Ticket deleted with success!",
             };
-            res.redirect("/admin_tickets");
+            res.redirect("/");
         }
     });
 });
