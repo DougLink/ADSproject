@@ -20,5 +20,10 @@ const ticketSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    status:{
+        type: String,
+        required: true,
+        default: "Awaiting First Evaluation"
+    },
 }, {timestamps: true});
 module.exports = mongoose.model("Ticket", ticketSchema);

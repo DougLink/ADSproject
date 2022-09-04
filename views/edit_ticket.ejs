@@ -1,48 +1,72 @@
 <%- include('layout/header') %>
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6 mx-auto mt-4">
-            <div class="card text-white bg-dark mb-3">
-                <div class="card-header bg-success">
-                    <h3 class="text-light">Edit Ticket (<%= ticket._id %>)</h3>
-                </div>
-                <div class="card-body">
-                    <form action="/update/<%= ticket.id %>" method="post" id="add-form" enctype="multipart/form-data">
-                        <div class="mb-3">
-                        <label for="employee_id">Employee ID</label>
-                        <input type="id" name="employee_id" class="form-control form-control-lg"
-                        placeholder="Enter Employee ID" value="<%= ticket.employee_id %>" required />
-                        </div>
-                        <div class="mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control form-control-lg"
-                        placeholder="Enter email" value="<%= ticket.email %>" required />
-                        </div>
-                        <div class="mb-3">
-                        <label for="office_room">Office Room</label>
-                        <input type="name" name="office_room" class="form-control form-control-lg"
-                        placeholder="Enter office room" value="<%= ticket.office_room %>" required />
-                        </div>
-                        <div class="mb-3">
-                        <label for="description">Description</label>
-                        <input type="description" name="description" class="form-control form-control-lg"
-                        placeholder="Enter description" value="<%= ticket.description %>" required />
-                        </div>
-                        <div class="mb-3">
-                        <label for="image" class="form-label">Select Image</label>
-                        <input class="form-control form-control-lg" type="file" name="image" />
-                        <img src="/<%= ticket.image %>" width="100" class="img-thumbnail mt-1" />
-                        </div>
-                        <input type="'hidden" name="old-image" value="<%= ticket.image %>" />
-                        <div class="mb-3 d-grid">
-                        <input type="submit" name="submit" value="Update Ticket" class="btn btn-primary btn-success">
-                        </div>      
-                    </form>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Ninth navbar example">
+        <div class="container-xl">
+            <a href="/admin_tickets" class="navbar-brand"><i class="fa-solid fa-screwdriver-wrench"></i>RepairIT</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarsExample07XL">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/admin_tickets"><i class="fa-sharp fa-solid fa-toolbox"></i>Tickets</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto mt-4">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header bg-success">
+                        <h3 class="text-light">Edit Ticket (<%= ticket._id %>)</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/update/<%= ticket.id %>" method="post" id="add-form" enctype="multipart/form-data">
+                            <div class="mb-3">
+                            <label for="employee_id">Employee ID</label>
+                            <input type="id" name="employee_id" class="form-control form-control-lg"
+                            placeholder="Enter Employee ID" value="<%= ticket.employee_id %>" required />
+                            </div>
+                            <div class="mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control form-control-lg"
+                            placeholder="Enter email" value="<%= ticket.email %>" required />
+                            </div>
+                            <div class="mb-3">
+                            <label for="office_room">Office Room</label>
+                            <input type="name" name="office_room" class="form-control form-control-lg"
+                            placeholder="Enter office room" value="<%= ticket.office_room %>" required />
+                            </div>
+                            <div class="mb-3">
+                            <label for="description">Description</label>
+                            <input type="description" name="description" class="form-control form-control-lg"
+                            placeholder="Enter description" value="<%= ticket.description %>" required />
+                            </div>
+                            <div class="mb-3">
+                            <label for="status">Status</label>
+                            <input type="status" name="status" class="form-control form-control-lg"
+                            placeholder="Enter status" value="<%= ticket.status %>" required />
+                            </div>
+                            <div class="mb-3">
+                            <label for="image" class="form-label">Select Image</label>
+                            <input class="form-control form-control-lg" type="file" name="image" />
+                            <img src="/<%= ticket.image %>" width="100" class="img-thumbnail mt-1" />
+                            </div>
+                            <input type="'hidden" name="old-image" value="<%= ticket.image %>" />
+                            <div class="mb-3 d-grid">
+                            <input type="submit" name="submit" value="Update Ticket" class="btn btn-primary btn-success">
+                            </div>      
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <%- include('layout/footer') %>

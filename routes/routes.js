@@ -8,8 +8,12 @@ router.get("/", (req,res) => {
     res.render("add_ticket", { title: "Add Ticket"});
 });
 
+router.get("/employee", (req,res) => {
+    res.render("employee", { title: "Employee Page"});
+});
+
 router.get("/login", (req,res) => {
-    res.render("login", { title: "Login"});
+    res.render("login", { title: "Login Page"});
 });
 
 // image upload
@@ -48,12 +52,28 @@ router.post("/add", upload, (req, res) => {
     })
 });
 
-//Get ticket route
-router.get("/tickets", (req,res) => {
+//Get ticket route(Admin)
+router.get("/admin_tickets", (req,res) => {
     Ticket.find().exec((err,tickets) => {
         if(err){
             res.json({message: err.message });
         }else{
+            res.render('admin_tickets', {
+                title:'Admin Tickets Page',
+                tickets: tickets
+            })
+        }
+    })
+});
+
+//Get my tickets route
+router.get('/tickets/:employee_id', (req,res) => {
+    let employee_id = req.params.employee_id;
+    Ticket.findById(employee_id, (err, tickets) => {
+        if (err) {
+            res.redirect("/employee");
+            res.json({message: err.message });
+        } else {
             res.render('tickets', {
                 title:'Tickets Page',
                 tickets: tickets
@@ -62,17 +82,15 @@ router.get("/tickets", (req,res) => {
     })
 });
 
-
-
 // Edit ticket
 router.get('/edit/:id', (req, res) => {
     let id = req.params.id;
     Ticket.findById(id, (err, ticket) => {
         if (err) {
-            res.redirect("/");
+            res.redirect("/admin_tickets");
         } else {
             if (ticket == null) {
-                res.redirect("/");
+                res.redirect("/admin_tickets");
             } else {
                 res.render("edit_ticket", {
                     title: "Edit Ticket",
@@ -104,6 +122,7 @@ router.post('/update/:id', upload, (req, res) => {
         email: req.body.email,
         office_room: req.body.office_room,
         description: req.body.description,
+        status: req.body.status,
         image: new_image,
     }, (err, result) => {
         if(err){
@@ -113,7 +132,7 @@ router.post('/update/:id', upload, (req, res) => {
                 type: 'success',
                 message: 'Ticket updated with success!'
             };
-            res.redirect('/');
+            res.redirect('/admin_tickets');
         }
     })
 });
@@ -138,7 +157,7 @@ router.get('/delete/:id', (req, res) => {
                 type: "info",
                 message:"Ticket deleted with success!",
             };
-            res.redirect("/");
+            res.redirect("/admin_tickets");
         }
     });
 });

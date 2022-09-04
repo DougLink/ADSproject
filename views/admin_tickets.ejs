@@ -2,22 +2,19 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Ninth navbar example">
         <div class="container-xl">
-            <a href="/" class="navbar-brand"><i class="fa-solid fa-screwdriver-wrench"></i>RepairIT</a>
+            <a href="/admin_tickets" class="navbar-brand"><i class="fa-solid fa-screwdriver-wrench"></i>RepairIT</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
     
           <div class="collapse navbar-collapse" id="navbarsExample07XL">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/"><i class="fa-regular fa-square-plus"></i>Add a Ticket</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/tickets"><i class="fa-solid fa-magnifying-glass"></i>Find my Tickets</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/login"><i class="fa-sharp fa-solid fa-toolbox"></i>Admin Login</a>
-                  </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/admin_tickets"><i class="fa-sharp fa-solid fa-toolbox"></i>Admin Tickets</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -43,6 +40,7 @@
                                 <th>Description</th>
                                 <th>Image</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -55,12 +53,17 @@
                                         <td><%= row.description %></td>
                                         <td><img id="img" src="<%= row.image %>" width="80" class="img-thumbnail" /></td>
                                         <td><%= row.status %></td>
+                                        <td>
+                                        <a href="/edit/<%= row._id %>" class="text-danger"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="/conclude/<%= row._id %>" class="text-success"><i class="fa-sharp fa-solid fa-square-check"></i></a>
+                                        <a href="/delete/<%= row._id %>" class="text-danger"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
                                     </tr>                            
                                 <% }) %> 
                             </tbody>
                         </table>
                     <% } else { %>
-                        <h1 class="text-center text-secondary mt-5">You have no tickets in the database!</h1>
+                        <h1 class="text-center text-secondary mt-5">No tickets found in the database!</h1>
                     <% } %>
                 </div>
             </div>
