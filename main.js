@@ -35,6 +35,12 @@ app.use((req, res, next) => {
 
 app.use(express.static("uploads"));
 
+global.loggedIn = null;
+  app.use("*", (req, res, next) => {
+    loggedIn = req.session.employeeId;
+    next()
+  });
+
 // set template engine
 app.set("view engine", "ejs");
 

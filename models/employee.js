@@ -34,6 +34,7 @@ const employeeSchema = new mongoose.Schema({
 
 employeeSchema.pre('save', function(next){
     const employee = this
+    console.log(employee)
     bcrypt.hash(employee.password, 10, (error, hash) => {
         employee.password = hash
         next()

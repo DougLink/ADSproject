@@ -20,25 +20,22 @@ router.get("/register", (req,res) => {
     res.render("register", { title: "Register Page"});
 });
 
+
 // register new employee into the DB
-router.post("/register", (req, res) => {
-    const employee = new Employee({
-        employee_id: req.body.employee_id,
-        name: req.body.name,
-        email: req.body.email,
-        office_room: req.body.office_room,
-        password: req.body.password,
-    });
-    employee.save((err) => {
-        if(err){
-            res.json({message: err.message, type: 'danger'});
-        }else{
-            req.session.message = {
-                type: 'success',
-                message: 'Employee Registered Successfully!'
-            };
-            res.redirect('/admin_tickets');
+router.post("/register", (req, res) => { 
+
+    Employee.create(req.body, (error, user) => {
+        //console.log("successful")
+   
+        if(error){
+        console.log(error)
+        return res.redirect('/auth/register')
         }
+        req.session.message = {
+            type: 'success',
+            message: 'Employee Registered Successfully!'
+        };
+        res.redirect('/')
     })
 });
 
@@ -186,5 +183,9 @@ router.get('/delete/:id', (req, res) => {
         }
     });
 });
+
+
+
+
 
 module.exports = router;
