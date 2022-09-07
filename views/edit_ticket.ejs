@@ -11,24 +11,9 @@
                     <div class="card-body">
                         <form action="/update/<%= ticket.id %>" method="post" id="add-form" enctype="multipart/form-data">
                             <div class="mb-3">
-                            <label for="employee_id">Employee ID</label>
-                            <input type="id" name="employee_id" class="form-control form-control-lg"
-                            placeholder="Enter Employee ID" value="<%= ticket.employee_id %>" required />
-                            </div>
-                            <div class="mb-3">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control form-control-lg"
-                            placeholder="Enter email" value="<%= ticket.email %>" required />
-                            </div>
-                            <div class="mb-3">
                             <label for="office_room">Office Room</label>
                             <input type="name" name="office_room" class="form-control form-control-lg"
                             placeholder="Enter office room" value="<%= ticket.office_room %>" required />
-                            </div>
-                            <div class="mb-3">
-                            <label for="description">Description</label>
-                            <input type="description" name="description" class="form-control form-control-lg"
-                            placeholder="Enter description" value="<%= ticket.description %>" required />
                             </div>
                             <div class="mb-3">
                             <label for="status">Status</label>

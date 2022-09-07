@@ -16,10 +16,6 @@ const employeeSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    office_room: {
-        type: String,
-        required: true,
-    },
     password: {
         type: String,
         required: true,

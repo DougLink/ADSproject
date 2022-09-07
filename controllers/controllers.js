@@ -31,8 +31,11 @@ router.post("/register", (req, res) => {
         //console.log("successful")
    
         if(error){
-        console.log(error)
-        return res.redirect('/auth/register')
+        req.session.message = {
+            type: 'danger',
+            message: 'Employee Already Registered'
+        };
+        return res.redirect('/register')
         }
         req.session.message = {
             type: 'success',
@@ -55,6 +58,7 @@ router.post("/login", (req, res) => {
                     // store user session, will talk about it later
                     req.session.employeeId = employee.employee_id
                     req.session.Admin = employee.admin;
+                    req.session.Email = employee.email;
                 
                     console.log(req.session)
                     
@@ -108,9 +112,10 @@ var upload = multer({
 
 // inserting ticket into the DB route
 router.post("/add", upload, (req, res) => {
+    
     const ticket = new Ticket({
-        employee_id: req.body.employee_id,
-        email: req.body.email,
+        employee_id: loggedIn,
+        email: Email,
         office_room: req.body.office_room,
         description: req.body.description,
         image: req.file.filename,
@@ -144,7 +149,8 @@ router.get("/admin_tickets", (req,res) => {
 
 //Get my tickets route
 router.get('/tickets', (req,res) => {
-    Ticket.find().exec((err,tickets) => {
+
+    Ticket.find({employee_id:loggedIn}).exec((err,tickets) => {
         if(err){
             res.json({message: err.message });
         }else{
@@ -175,6 +181,7 @@ router.get('/edit/:id', (req, res) => {
     });
 });
 
+
 // Update ticket route
 router.post('/update/:id', upload, (req, res) => {
     let id = req.params.id;
@@ -192,10 +199,7 @@ router.post('/update/:id', upload, (req, res) => {
     }
 
     Ticket.findByIdAndUpdate(id, {
-        employee_id: req.body.employee_id,
-        email: req.body.email,
         office_room: req.body.office_room,
-        description: req.body.description,
         status: req.body.status,
         image: new_image,
     }, (err, result) => {
@@ -205,6 +209,25 @@ router.post('/update/:id', upload, (req, res) => {
             req.session.message = {
                 type: 'success',
                 message: 'Ticket updated with success!'
+            };
+            res.redirect('/admin_tickets');
+        }
+    })
+});
+
+
+// Conclude ticket route
+router.get('/conclude/:id', (req, res) => {
+    let id = req.params.id;
+    Ticket.findByIdAndUpdate(id, {
+        status: "Concluded",
+    }, (err, result) => {
+        if(err){
+            res.json({message: err.message, type: 'danger'});
+        } else {
+            req.session.message = {
+                type: 'success',
+                message: 'Ticket Concluded with success!'
             };
             res.redirect('/admin_tickets');
         }

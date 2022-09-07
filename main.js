@@ -37,12 +37,15 @@ app.use(express.static("uploads"));
 
 global.loggedIn = null;
 global.Admin = null;
-  app.use("*", (req, res, next) => {
-    console.log(req.session)
-    loggedIn = req.session.employeeId;
-    Admin = req.session.Admin;
-    next()
-  });
+global.Email = null;
+app.use("*", (req, res, next) => {
+  console.log(req.session)
+  loggedIn = req.session.employeeId;
+  Admin = req.session.Admin;
+  Email = req.session.Email;
+  next()
+});
+module.exports = Email;
 
 // set template engine
 app.set("view engine", "ejs");
