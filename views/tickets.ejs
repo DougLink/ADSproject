@@ -16,8 +16,6 @@
                             <thead>
                             <tr class="table-dark">
                                 <th>Index</th>
-                                <th>Employee ID</th>
-                                <th>E-Mail</th>
                                 <th>Office Room</th>
                                 <th>Description</th>
                                 <th>Image</th>
@@ -28,8 +26,6 @@
                                 <% tickets.forEach((row, index) => { %>
                                     <tr class="align-middle">
                                         <td><%= index %></td>
-                                        <td><%= row.employee_id %></td>
-                                        <td><%= row.email %></td>
                                         <td><%= row.office_room %></td>
                                         <td><%= row.description %></td>
                                         <td><img id="img" src="<%= row.image %>" width="80" class="img-thumbnail" /></td>
