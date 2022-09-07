@@ -36,8 +36,11 @@ app.use((req, res, next) => {
 app.use(express.static("uploads"));
 
 global.loggedIn = null;
+global.Admin = null;
   app.use("*", (req, res, next) => {
+    console.log(req.session)
     loggedIn = req.session.employeeId;
+    Admin = req.session.Admin;
     next()
   });
 

@@ -4,6 +4,7 @@ const Ticket = require("../models/ticket_repair");
 const Employee = require("../models/employee");
 const multer = require("multer");
 const fs = require("fs");
+const bcrypt = require('bcrypt');
 
 // add ticket page route
 router.get("/add", (req,res) => {
@@ -11,7 +12,7 @@ router.get("/add", (req,res) => {
 });
 
 // login page route
-router.get("/login", (req,res) => {
+router.get("/", (req,res) => {
     res.render("login", { title: "Login Page"});
 });
 
@@ -19,6 +20,8 @@ router.get("/login", (req,res) => {
 router.get("/register", (req,res) => {
     res.render("register", { title: "Register Page"});
 });
+
+
 
 
 // register new employee into the DB
@@ -39,6 +42,55 @@ router.post("/register", (req, res) => {
     })
 });
 
+
+// login
+router.post("/login", (req, res) => {
+
+    const { employee_id, password } = req.body;
+    console.log(employee_id, password);
+    Employee.findOne({employee_id:employee_id}, (error,employee) => {
+        if (employee){
+            bcrypt.compare(password, employee.password, (error, same) =>{
+                if(same){ // if passwords match
+                    // store user session, will talk about it later
+                    req.session.employeeId = employee.employee_id
+                    req.session.Admin = employee.admin;
+                
+                    console.log(req.session)
+                    
+                    console.log("logged in successfuly")
+                    if(employee.admin == true){
+                        res.redirect('/admin_tickets')
+                    } else{
+                        res.redirect('/tickets')
+                    } 
+                } else{
+                    req.session.message = {
+                        type: 'danger',
+                        message: 'Wrong Password!'
+                    };
+                    res.redirect('/');
+                }
+            })
+        } 
+        else{
+            req.session.message = {
+                type: 'danger',
+                message: 'Wrong Employee ID!'
+            };
+            res.redirect('/');
+        }
+    })
+
+}); 
+
+
+// logout
+router.get("/logout", (req, res) => {
+    req.session.destroy(() =>{
+        res.redirect('/')
+    })
+});
 
 // image upload
 var storage = multer.diskStorage({
@@ -77,7 +129,7 @@ router.post("/add", upload, (req, res) => {
 });
 
 //Get ticket route(Admin)
-router.get("/", (req,res) => {
+router.get("/admin_tickets", (req,res) => {
     Ticket.find().exec((err,tickets) => {
         if(err){
             res.json({message: err.message });
@@ -109,10 +161,10 @@ router.get('/edit/:id', (req, res) => {
     let id = req.params.id;
     Ticket.findById(id, (err, ticket) => {
         if (err) {
-            res.redirect("/");
+            res.redirect("/admin_tickets");
         } else {
             if (ticket == null) {
-                res.redirect("/");
+                res.redirect("/admin_tickets");
             } else {
                 res.render("edit_ticket", {
                     title: "Edit Ticket",
@@ -154,7 +206,7 @@ router.post('/update/:id', upload, (req, res) => {
                 type: 'success',
                 message: 'Ticket updated with success!'
             };
-            res.redirect('/');
+            res.redirect('/admin_tickets');
         }
     })
 });
@@ -179,7 +231,7 @@ router.get('/delete/:id', (req, res) => {
                 type: "info",
                 message:"Ticket deleted with success!",
             };
-            res.redirect("/");
+            res.redirect("/admin_tickets");
         }
     });
 });
