@@ -135,7 +135,7 @@ router.post("/add", upload, (req, res) => {
 
 //Get ticket route(Admin)
 router.get("/admin_tickets", (req,res) => {
-    Ticket.find().exec((err,tickets) => {
+    Ticket.find({status: {"$ne": "Concluded"}}).exec((err,tickets) => {
         if(err){
             res.json({message: err.message });
         }else{
