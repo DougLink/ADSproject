@@ -17,15 +17,22 @@
     var modal = document.getElementById("myModal");
     
     // Get the image and insert it inside the modal
+    var images = document.querySelectorAll(".img-thumbnail");
     var img = document.getElementById("img");
     var modalImg = document.getElementById("img01");
-    img.onclick = function(){
+    for(let i = 0; i < images.length; i++){
+      images[i].onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+      }
+    }
+    /*img.onclick = function(){
       modal.style.display = "block";
       modalImg.src = this.src;
-    }
+    }*/
     
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("modal-close");
+    var span = document.getElementsByClassName("modal-close")[0];
     
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() { 
