@@ -55,7 +55,7 @@ router.post("/login", (req, res) => {
         if (employee){
             bcrypt.compare(password, employee.password, (error, same) =>{
                 if(same){ // if passwords match
-                    // store user session, will talk about it later
+                    // store user session
                     req.session.employeeId = employee.employee_id
                     req.session.Admin = employee.admin;
                     req.session.Email = employee.email;
